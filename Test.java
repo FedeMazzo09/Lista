@@ -1,44 +1,35 @@
 public class Test {
     public static void main(String[] args) {
-        Lista l = new Lista(0, null, null);
 
-        l.accoda("A");
-        l.accoda("B");
-        l.accoda("C");
-        l.accoda("B");
-        l.accoda("D");
+        Lista l = new Lista();
 
-        System.out.println("Lista creata con accodamento");
+        System.out.println("Accodamento:");
+        l.accodamento("A");
+        l.accodamento("B");
+        l.accodamento("C");
+        l.stampa();
 
-        System.out.println("Lettura indice 0: " + l.lettura(0));
-        System.out.println("Lettura indice 2: " + l.lettura(2));
+        System.out.println("Inserimento in posizione 1:");
+        l.inserimento("X", 1);
+        l.stampa();
 
-        int pos = l.ricerca("B");
-        System.out.println("Prima occorrenza di B alla posizione: " + pos);
+        System.out.println("Lettura indice 2:");
+        System.out.println(l.lettura(2));
 
-        l.inserimento("X", 2);
-        System.out.println("Inserito X in posizione 2");
+        System.out.println("Ricerca di B:");
+        System.out.println(l.ricerca("B"));
 
-        System.out.println("Lettura indice 2: " + l.lettura(2));
+        System.out.println("Visita:");
+        System.out.println(l.visita());
+        System.out.println(l.visita());
+        System.out.println(l.visita());
 
-        l.cursor = l.head;
-        System.out.println("Visita 1: " + l.visita());
-        System.out.println("Visita 2: " + l.visita());
-        System.out.println("Visita 3: " + l.visita());
-
+        System.out.println("Eliminazione indice 1:");
         l.eliminazione(1);
-        System.out.println("Eliminato elemento in posizione 1");
+        l.stampa();
 
-        System.out.println("Lettura indice 1: " + l.lettura(1));
-
-        l.eliminazioneCompleta("B");
-        System.out.println("Eliminate tutte le B");
-
-        System.out.println("Lista finale:");
-        l.cursor = l.head;
-        String valore;
-        while ((valore = l.visita()) != null) {
-            System.out.println(valore);
-        }
+        System.out.println("Eliminazione completa di A:");
+        l.eliminazioneCompleta("A");
+        l.stampa();
     }
 }

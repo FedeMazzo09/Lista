@@ -1,130 +1,132 @@
 public class Lista {
-    public int size;
     public Nodo head;
     public Nodo cursor;
     
-    public Lista(int size, Nodo head, Nodo cursor) {
-        this.size = size;
-        this.head = head;
-        this.cursor = cursor;
+    public Lista() {
+        this.head = null;
+        this.cursor = null;
     }
 
     public String visita() {
-        if (cursor != null) {
-            String val = cursor.value;
-            cursor = cursor.next;
-            return val;
-        }
-        return null;
-    }
+        if (cursor == null)
+            cursor = head;
 
-
-    public  void accoda(String value) {
-        Nodo newNode = new Nodo(value, null);
-        if (head == null) {
-            head = newNode;
-        } else {
-            Nodo current = head;
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = newNode;
-        }
-        size++;
-    }
-
-    public void eliminazione(int index) {
-        if (head == null || index < 0 || index >= size) {
-            return;
-        }
-
-        if (index == 0) {
-            if (cursor == head) {
-                cursor = head.next;
-            }
-            head = head.next;
-        } else {
-            Nodo current = head;
-            for (int i = 0; i < index - 1; i++) {
-                current = current.next;
-            }
-
-            if (cursor == current.next) {
-                cursor = current.next.next;
-            }
-
-            current.next = current.next.next;
-        }
-        size--;
-        if (size == 0) {
-            cursor = null;
-        }
-    }
-
-    public String lettura(int index) {
-        if (index < 0 || index >= size){
+        if (cursor == null)
             return null;
-        }
 
-        Nodo current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
-        return current.value;
+        String valore = cursor.value;
+        cursor = cursor.next;
+        return valore;
     }
 
-    public int ricerca(String value) {
-        Nodo current = head;
-        int index = 0;
+    public String lettura(int indice) {
+        Nodo temp = head;
+        int i = 0;
 
-        while (current != null) {
-            if (current.value.equals(value)) {
-                return index;
-            }
-            current = current.next;
-            index++;
+        while (temp != null && i < indice) {
+            temp = temp.next;
+            i++;
         }
-        return -1; // non trovato
+
+        if (temp == null)
+            return null;
+
+        return temp.value;
     }
 
-    public void inserimento(String value, int index) {
-        if (index < 0 || index > size) return;
+    public int ricerca(String valore) {
+        Nodo temp = head;
+        int i = 0;
 
-        if (index == 0) {
-            head = new Nodo(value, head);
-            size++;
+        while (temp != null) {
+            if (temp.value.equals(valore))
+                return i;
+            temp = temp.next;
+            i++;
+        }
+
+        return -1;
+    }
+
+    public void inserimento(String valore, int indice) {
+        Nodo nuovo = new Nodo(valore, null);
+
+        if (indice == 0) {
+            nuovo.next = head;
+            head = nuovo;
             return;
         }
 
-        Nodo current = head;
-        for (int i = 0; i < index - 1; i++) {
-            current = current.next;
+        Nodo temp = head;
+        int i = 0;
+
+        while (temp != null && i < indice - 1) {
+            temp = temp.next;
+            i++;
         }
 
-        current.next = new Nodo(value, current.next);
-        size++;
+        if (temp != null) {
+            nuovo.next = temp.next;
+            temp.next = nuovo;
+        }
     }
 
-    public void eliminazioneCompleta(String value) {
-        while (head != null && head.value.equals(value)) {
+    public void accodamento(String valore) {
+        Nodo nuovo = new Nodo(valore, null);
+
+        if (head == null) {
+            head = nuovo;
+            return;
+        }
+
+        Nodo temp = head;
+        while (temp.next != null)
+            temp = temp.next;
+
+        temp.next = nuovo;
+    }
+
+    public void eliminazione(int indice) {
+        if (head == null)
+            return;
+
+        if (indice == 0) {
             head = head.next;
-            size--;
+            return;
         }
 
-        Nodo current = head;
-        while (current != null && current.next != null) {
-            if (current.next.value.equals(value)) {
-                if (cursor == current.next) {
-                    cursor = current.next.next;
-                }
-                current.next = current.next.next;
-                size--;
-            } else {
-                current = current.next;
-            }
+        Nodo temp = head;
+        int i = 0;
+
+        while (temp.next != null && i < indice - 1) {
+            temp = temp.next;
+            i++;
         }
 
-        if (size == 0) cursor = null;
+        if (temp.next != null)
+            temp.next = temp.next.next;
     }
 
+    public void eliminazioneCompleta(String valore) {
+        while (head != null && head.value.equals(valore))
+            head = head.next;
+
+        Nodo temp = head;
+
+        while (temp != null && temp.next != null) {
+            if (temp.next.value.equals(valore))
+                temp.next = temp.next.next;
+            else
+                temp = temp.next;
+        }
+    }
+
+    public void stampa() {
+        Nodo temp = head;
+        while (temp != null) {
+            System.out.print(temp.value + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
 }
