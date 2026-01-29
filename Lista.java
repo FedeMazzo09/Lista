@@ -129,4 +129,30 @@ public class Lista {
         }
         System.out.println("null");
     }
+
+    public void impila(String valore) {
+        Nodo nuovo = new Nodo(valore, head);
+        head = nuovo;
+    }
+
+    public void aggiungiOrdineAlfabetico(String valore) {
+        Nodo nuovo = new Nodo(valore, null);
+
+        if (head == null || valore.compareToIgnoreCase(head.value) < 0) {
+            nuovo.next = head;
+            head = nuovo;
+            return;
+        }
+
+        Nodo temp = head;
+
+        while (temp.next != null &&
+                valore.compareToIgnoreCase(temp.next.value) > 0) {
+            temp = temp.next;
+        }
+
+        nuovo.next = temp.next;
+        temp.next = nuovo;
+    }
+
 }
