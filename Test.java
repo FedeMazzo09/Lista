@@ -6,7 +6,7 @@ public class Test {
         System.out.println("Accodamento:");
         l.accodamento("A");
         l.accodamento("B");
-        l.accodamento("C");
+        l.accodamento("D");
         l.stampa();
 
         System.out.println("Inserimento in posizione 1:");
@@ -30,6 +30,14 @@ public class Test {
 
         System.out.println("Eliminazione completa di A:");
         l.eliminazioneCompleta("A");
+        l.stampa();
+
+        System.out.println("Inserimento ordinato di C:");
+        l.aggiungiOrdineAlfabetico("C");
+        l.stampa();
+
+        System.out.println("Inserimento impilato di A:");
+        l.impila("A");
         l.stampa();
     }
 }
